@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DBUDC" Class="dbudcDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-SBIUVOP\SQLEXPRESS01;Initial Catalog=DBUDC;Integrated Security=True" SettingsObjectName="UniversitariaMovil.Persistencia1.Properties.Settings" SettingsPropertyName="DBUDCConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Document" Member="Documents">
+    <Type Name="Document">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Document_Student" Member="Students" ThisKey="id" OtherKey="DocumentTypeId" Type="Student" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Teacher" Member="Teachers">
+    <Type Name="Teacher">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="DocumentTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Document" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="GenderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Mobile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Teacher_Subject" Member="Subjects" ThisKey="id" OtherKey="TeacherId" Type="Subject" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Gender" Member="Genders">
+    <Type Name="Gender">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Gender_Student" Member="Students" ThisKey="id" OtherKey="GenderId" Type="Student" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Program" Member="Programs">
+    <Type Name="Program">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Program_Student" Member="Students" ThisKey="id" OtherKey="ProgramId" Type="Student" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Results" Member="Results">
+    <Type Name="Result">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubjectId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Note1" Type="System.Decimal" DbType="Decimal(9,1)" CanBeNull="true" />
+      <Column Name="Note2" Type="System.Decimal" DbType="Decimal(9,1)" CanBeNull="true" />
+      <Column Name="Note3" Type="System.Decimal" DbType="Decimal(9,1)" CanBeNull="true" />
+      <Association Name="Student_Result" Member="Student" ThisKey="StudentId" OtherKey="id" Type="Student" IsForeignKey="true" />
+      <Association Name="Subject_Result" Member="Subject" ThisKey="SubjectId" OtherKey="id" Type="Subject" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Student" Member="Students">
+    <Type Name="Student">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="DocumentTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Document" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="GenderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Mobile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ProgramId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Student_Result" Member="Results" ThisKey="id" OtherKey="StudentId" Type="Result" />
+      <Association Name="Document_Student" Member="Document1" ThisKey="DocumentTypeId" OtherKey="id" Type="Document" IsForeignKey="true" />
+      <Association Name="Gender_Student" Member="Gender" ThisKey="GenderId" OtherKey="id" Type="Gender" IsForeignKey="true" />
+      <Association Name="Program_Student" Member="Program" ThisKey="ProgramId" OtherKey="id" Type="Program" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Subject" Member="Subjects">
+    <Type Name="Subject">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TeacherId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Subject_Result" Member="Results" ThisKey="id" OtherKey="SubjectId" Type="Result" />
+      <Association Name="Teacher_Subject" Member="Teacher" ThisKey="TeacherId" OtherKey="id" Type="Teacher" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.AddDocument" Method="AddDocument">
+    <Parameter Name="p_DocumentId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="p_Name" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateProgram" Method="UpdateProgram">
+    <Parameter Name="p_ProgramId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="p_Name" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddGender" Method="AddGender">
+    <Parameter Name="p_GenderId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="p_Name" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddProgram" Method="AddProgram">
+    <Parameter Name="p_ProgramId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="p_Name" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddStudent" Method="AddStudent">
+    <Parameter Name="s_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="s_firstName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="s_LastName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="s_BirthDate" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="s_DocumentTypeId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="s_Document" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="s_GenderId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="s_Address" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="s_Mobile" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="s_Email" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="s_ProgramId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteDocument" Method="DeleteDocument">
+    <Parameter Name="p_DocumentId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteGender" Method="DeleteGender">
+    <Parameter Name="p_GenderId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteProgram" Method="DeleteProgram">
+    <Parameter Name="p_ProgramId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateDocument" Method="UpdateDocument">
+    <Parameter Name="p_DocumentId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="p_Name" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateGender" Method="UpdateGender">
+    <Parameter Name="p_GenderId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="p_Name" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>
