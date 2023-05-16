@@ -37,15 +37,25 @@ namespace WSCrear
         }
 
         [WebMethod]
-        public DataSet WSConsulta()
+        public DataSet WSEstudiantes()
         {
             SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = "Data Source=DESKTOP-SBIUVOP\\SQLEXPRESS01;Initial catalog=DBUDC; Integrated Security=true";
-            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Program", conn);
+            conn.ConnectionString = "Data Source=DESKTOP-J5VM7KV\\SQLEXPRESS;Initial catalog=DBUDC; Integrated Security=true";
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Student", conn);
             DataSet ds = new DataSet();
             da.Fill(ds);
             return ds;
         }
+        [WebMethod]
 
+        public DataSet WSConsulta(String Nombre)
+        {
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString = "Data Source=DESKTOP-J5VM7KV\\SQLEXPRESS;Initial catalog=DBUDC; Integrated Security=true";
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Program WHERE Name LIKE '%" + Nombre + "%' OR id IN (SELECT ProgramId FROM Student WHERE FirstName LIKE '%" + Nombre + "%' OR LastName LIKE '%" + Nombre + "%')", conn);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+        }
     }
 }
